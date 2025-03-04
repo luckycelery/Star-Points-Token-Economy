@@ -1,9 +1,5 @@
-# Star-Points-Token-Economy
-The intended purpose of this program
-is to serve as an electronic form of a token economy. It should provide children, particularly those with autism,
-a fun and engaging way to track their progress toward earning rewards through task
-completion. The application allows for personalization per client, helping to maintain
-motivation and interest.
+Star-Points-Token-Economy
+The intended purpose of this program is to serve as an electronic form of a token economy. It should provide children, particularly those with autism, with a fun and engaging way to track their progress toward earning rewards through task completion. The application allows for personalization per client, helping to maintain motivation and interest.
 
 Overarching Goals for Final Application:
 •	Provide children with an engaging way to track their progress toward completing tasks and earning rewards.
@@ -12,18 +8,34 @@ Overarching Goals for Final Application:
 •	Allow children to see their progress in real-time, reinforcing motivation and positive behavior.
 •	Give parents, therapists, or teachers an easy way to manage and adjust the task/reward system as needed.
 
+Overview:
+The Star Points Application is a Tkinter-based GUI program designed to help users track tasks, assign self-grades, earn rewards, and access a Parent Portal for managing task and reward lists. The program implements validation for secure input handling and offers an intuitive, user-friendly experience.
+Features:
+•	Task tracking system with checkboxes for completed tasks
+•	Self-grading functionality for progress evaluation
+•	Bonus point entry with validation to ensure numeric input
+•	Parent Portal for managing tasks and rewards
+•	Reward redemption system based on earned points
+•	Secure input handling with validation checks
 
-Application Feature Goals:
-•	Task Management: The app will allow users to input custom tasks, assign point values, and track completion.
-•	Task Completion Tracking: Users can mark tasks as completed with a simple true/false input.
-•	Grading System: Both the child and adult can grade the completion of tasks, providing a dual perspective on performance.
-•	Bonus Points: Teachers or parents can give bonus points based on specific achievements or extra efforts.
-•	Progress and Stats Display: The child will be able to view their progress and total points
-•	Reward Redemption: Children can redeem earned points for pre-set rewards, which are customizable by the adult/therapist/parent.
-•	Customization and Flexibility: Parents or therapists can adjust tasks, rewards, and settings at any time, allowing for easy updates to keep the system fresh and motivating for the child.
+Installation Instructions:
+•	Ensure you have Python 3.x installed on your system.
+•	Install Tkinter (comes pre-installed with standard Python distributions).
+•	Download or clone the project files from the GitHub repository.
+•	Ensure required images (e.g., Astronaut.png) are in the same directory as the Python script.
+•	Run the script using: python star_points.py
 
-Completed Tasks: 
-•	Create the tkinter window
-•	begin building and formatting headers
-•	define and create some of the various fonts that wil be used
-•	started modularizing differnt steps to make it easier later on
+How to Use the Application:
+•	Launching the Program: Run the Python script to open the main application window.
+•	Completing Tasks: Check off completed tasks to track progress.
+•	Self-Grading: Enter a self-grade to assess performance.
+•	Earning Bonus Points: Input valid numeric values in the Bonus Points field.
+•	Redeeming Rewards: Earn enough points to unlock and redeem rewards.
+•	Using the Parent Portal: Access and update tasks, rewards, and costs.
+•	Saving Changes: Save modifications in the Parent Portal to update stored data.
+
+Validation and Error Handling:
+•	The Bonus Points entry only accepts numeric input; invalid entries trigger an error message.
+•	The Self-Grade entry also ensures valid numeric input.
+•	The Parent Portal prevents blank task/reward entries from being saved.
+•	All user input is validated to maintain secure and error-free functionality.
