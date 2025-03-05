@@ -15,7 +15,7 @@ their accumulated points.
 
 Main Features:
 - Task checklist with checkboxes
-- Self-grading system (1-10)
+- Self-grading system (0-10)
 - Reward redemption system based on earned points
 - Parent Portal for modifying tasks and rewards
 - Bonus point entry and data persistence
@@ -114,7 +114,7 @@ class WidgetCreator:
         Loads images for the GUI using Tkinter's built in PhotoImage.
         If an image error occurs, it prints and error message
         """
-
+        #load in image files 
         try:
             self.star_img = tk.PhotoImage(file="Star.png").subsample(3,3) #Load and resize image
             self.astro_img = tk.PhotoImage(file="Astronaut.png").subsample(5,5) #load and resize image
@@ -130,7 +130,6 @@ class WidgetCreator:
         Returns:
             Tuple of font objects for banner, header, and rewards. 
         """
-
         #large font for banner on main window
         banner_font = tkFont.Font(family="Times New Roman", size=50, weight="bold")
         
@@ -147,7 +146,6 @@ class WidgetCreator:
         Creates main banner for the application with the title "Star Points".
         Includes Astronaut image for visual appeal and theme.
         """
-
         #format the banner logo
         mainPageBanner = tk.Label(
             self.root, text="Star Points", font=self.banner_font, fg="blue", bg="light blue"
@@ -176,7 +174,6 @@ class WidgetCreator:
         Parameters:  
             items(list): a lost of BooleanBar isntances with corresponding checkboxes
         """
-
         #create the header label that asks what the user has done today
         tasksCompletedHeader = tk.Label(
             self.root, text="What did you do today?", font=self.header_font, fg="gray", bg="light blue"
@@ -197,7 +194,6 @@ class WidgetCreator:
         Returns:
             list: a list of BooleanVar instances corresponding to checkboxes
         """
-
         taskList = [] #list to store boolean variables for each checkbox
         checkbox_frame = tk.Frame(self.root, bg="light blue") 
         checkbox_frame.grid(row=2, column=0, columnspan=6, sticky="w", padx=25, pady=10)
@@ -223,10 +219,9 @@ class WidgetCreator:
         Creates a section where the user can enter self-assigned grade for performance.
         Grade should be a number between 1 and 10.
         """
-
         #label asking user to assign self grade
         selfGradeHeader = tk.Label(
-            self.root, text="What grade do you give yourself? (1-10)",
+            self.root, text="What grade do you give yourself? (0-10)",
              font=self.header_font, fg="gray", bg="light blue"
              )
         selfGradeHeader.grid(row=3, column=0, sticky="w", padx=10, pady=30)
@@ -235,44 +230,22 @@ class WidgetCreator:
         self.selfGradeEntry = tk.Entry(self.root, width=15)
         self.selfGradeEntry.grid(row=4, column=0, sticky="w", padx=25, pady=10)
 
-        def validate_grade():
-            grade = self.selfGradeEntry.get().strip()  # Get input and remove spaces
-
-            if not grade.isdigit():  # If input is not a number
-                messagebox.showerror("Input Error", "Only enter numbers please.")
-                self.selfGradeEntry.delete(0, tk.END)  # Clear incorrect input
-                return
-
-            grade = int(grade)
-            if not (1 <= grade <= 10):  # If number is out of range
-                messagebox.showerror("Input Error", "Enter a number between 1 and 10.")
-                self.selfGradeEntry.delete(0, tk.END)
-
-        # Button to trigger validation
-        validate_button = tk.Button(
-            self.root, text="Check Grade", command=validate_grade,
-            font=("Times New Roman", 12, "bold"), bg="light blue"
-        )
-        validate_button.grid(row=4, column=1, padx=10, pady=10)
-
     
     def create_stats(self):
         """Creates a section displaying the "Sats" header"""
-
         #label for the stats section
         statsHeader = tk.Label(
             self.root, text="Stats", font=self.header_font, fg="gray", bg="light blue"
             )
 
         #position the stats head in the layout
-        statsHeader.grid(row=1, column=5, sticky="s", padx=10, pady=10)
+        statsHeader.grid(row=1, column=5, sticky="n", padx=10, pady=10)
 
 
     def create_rewards(self):
         """
         Creates a section that displays the rewards that the user has earned.
         """
-
         #label that sats Earned Rewards:
         rewardsHeader = tk.Label(
             self.root, text="Earned Rewards:", font=self.header_font, fg="gray", bg="light blue"
@@ -299,33 +272,12 @@ class WidgetCreator:
         self.bonusPoints.grid(row=7, column=0, sticky="w", padx=10, pady=10)
 
 
-        # Validation Function
-        # Validation Function
-        def validate_bonus():
-            bonus = self.bonusPoints.get().strip()  # Get input and remove spaces
-
-            if not bonus.isdigit():  # If input is not a number
-                messagebox.showerror("Input Error", "Only enter numbers please.")
-                self.bonusPoints.delete(0, tk.END)  # Clear incorrect input
-                return
-
-            # Convert to integer (if needed later)
-            bonus = int(bonus)
-
-        # Button to trigger validation
-        validate_button = tk.Button(
-            self.root, text="Check Bonus", command=validate_bonus,
-            font=("Times New Roman", 12, "bold"), bg="light blue"
-        )
-        validate_button.grid(row=7, column=1, padx=10, pady=10)
-
-
     def create_parent_button(self):
         """
         Creates a button that opens the Parent Portal when clicked.
         The Parent Portal allows parents to access specific functions.
         """
-
+        #create the parent portal button
         parentButton = tk.Button(
             self.root, text="Parent Portal", command=self.open_parent_portal, 
             font=("Times New Roman", 15, "bold"), bg="light blue"
@@ -337,7 +289,7 @@ class WidgetCreator:
         """
         Creates a button that refreshes all data fields when clicked.
         """ 
-
+        #create the refresh button
         refreshButton = tk.Button(
             self.root, text="Refresh", command=self.refresh_data, 
             font=("Times New Roman", 15, "bold"), bg="light blue"
@@ -351,7 +303,7 @@ class WidgetCreator:
         When clicked, it collects user input, and calculates total points, 
         and updates the display.
         """
-
+        #create the enter button
         enterButton = tk.Button(
             self.root, text="Enter", command=self.enter_data, 
             font=("Times New Roman", 15, "bold"), bg="light blue"
@@ -359,6 +311,7 @@ class WidgetCreator:
         enterButton.grid(row=7, column=2, sticky="w", padx=30, pady=10)
     
     def create_exit_button(self):
+        """Creates exit button to close the program upon selection"""
         self.exit_button = tk.Button(
             self.root, text="Exit", font=("Times New Roman", 15, "bold"),bg="light blue",
             command=self.root.quit
@@ -370,7 +323,6 @@ class WidgetCreator:
         Initializes and arranges all of the widgets in the application.
         This method calls various helper methods to create UI components.
         """
-
         #create main title banner
         self.create_banner()
 
@@ -478,7 +430,6 @@ class WidgetCreator:
             task_entries(list): list of task entry widgets
             parent_window(TopLevel): parent portal window instance
         """
-
         #extract non-empty task entries for input fields
         self.data_manager.tasks = [entry.get() for entry in task_entries
          if entry.get().strip() != ""
@@ -489,11 +440,15 @@ class WidgetCreator:
          if entry.get().strip() != ""
          ]
 
-         #extract non-emtpy reward costs, ensuring valid interget conversion
-        self.data_manager.reward_costs = [
-            int(entry.get()) for entry in self.reward_point_entries 
-            if entry.get().strip() != ""
+        # Extract non-empty reward costs, ensuring valid integer conversion
+        try:
+            self.data_manager.reward_costs = [
+                int(entry.get()) for entry in self.reward_point_entries if entry.get().strip() != ""
             ]
+        except ValueError:
+            # Show an error message if any reward cost is not a valid number
+            messagebox.showerror("Invalid Input", "Reward cost must be numerical ")
+            return  # Exit the method to prevent saving the invalid data
 
         #save updated data to corresponding files using pickle
         self.data_manager.save_data("tasks.pkl", self.data_manager.tasks)
@@ -510,7 +465,6 @@ class WidgetCreator:
          If multiple rewards are available, one is chosen randomly. 
          If no rewards are available at specified points, a message is displayed insted. 
         """
-
         # Clear previous reward button (if any)
         for widget in self.reward_buttons.winfo_children():
             widget.destroy()  # Fully remove old widgets to prevent overlapping
@@ -542,13 +496,12 @@ class WidgetCreator:
         """
         Handles the redemption of a selected award.
         """
-
         if self.total_points >= cost:
 
             #deduct the reward cost from the total available points
             self.total_points -= cost
             print(f"Redeemed {reward} for {cost} points!")
-            self.update_total_points()
+            self.update_total_points() #update the total points after redemption
             self.data_manager.save_data("total_points.pkl", self.total_points)
             self.display_rewards()  # Refresh the displayed rewards after redeeming
         else:
@@ -580,8 +533,8 @@ class WidgetCreator:
     def refresh_data(self):
         """
         Resets the input fields and checkbozes, then refreshes the reward display.
+        Checks if data entries in entry fields are valid and handles errors. 
         """
-
         # Clear self-entry fields by removing text input
         self.selfGradeEntry.delete(0, tk.END)
 
@@ -602,27 +555,43 @@ class WidgetCreator:
         """
         Handles user input for the self-grade, bonus points, and completed tasks. 
         """
-
         try:
-            #retrieved self-grade input and convert to float
-            self_grade = float(self.selfGradeEntry.get())
+            # Retrieve the self-grade input and strip any leading/trailing spaces
+            self_grade_input = self.selfGradeEntry.get().strip()
 
-            #ensure that self-grade is in valid range(1-10)
+            # Check if self-grade input is empty
+            if self_grade_input == "":
+                messagebox.showerror("Invalid Input", "Self-grade cannot be empty.")
+                return  # Stop further processing if self-grade is empty
+        
+            # Try converting the self-grade to a float
+            self_grade = float(self_grade_input)
+
+            # Ensure that self-grade is within a valid range (0-10)
             if self_grade < 0 or self_grade > 10:
-                raise ValueError("Self grade must be between 0 and 10.")
-        except ValueError as e:
-            #handle invalid self-grade entry and display error message
-            print(f"Invalid self grade: {e}")
-            return
+                messagebox.showerror("Invalid Input", "Self-grade must be between 0 and 10.")
+                return  # Stop further processing if out of valid range
 
-        try:
-            #retrieve bonus points input and convert to float
-            bonus_points = float(self.bonusPoints.get())
         except ValueError:
-            #if conversion fails(empty input)- default points earned is 0
-            bonus_points = 0
+            # If the conversion fails (non-numeric input), show an error
+            messagebox.showerror("Invalid Input", "Self-grade must be a number.")
+            return  # Stop further processing if input is not a valid number
 
-        #count the number of tasks that have been checked off
+        # Handle bonus points input in a similar manner
+        try:
+            # Retrieve bonus points input and strip any leading/trailing spaces
+            bonus_points_input = self.bonusPoints.get().strip()
+        
+            # If bonus points input is non-empty, attempt to convert it to a float
+            if bonus_points_input:
+                bonus_points = float(bonus_points_input)
+            else:
+                bonus_points = 0  # Default to 0 if no bonus points entered
+
+        except ValueError:
+            messagebox.showerror("Invalid Input", "Bonus points must be a number.")
+            return  # Stop further processing if bonus points input is invalid
+            #count the number of tasks that have been checked off
         checked_tasks = sum(1 for var in self.taskList if var.get())
 
         #calculate the total points from self-grade, bonus points, and completed tasks
@@ -667,9 +636,6 @@ if __name__ == "__main__":
     when executed directly. Not when imported as a module for another
     script. 
     """
-
     root = tk.Tk() #create the main Tkinter window
     app = StarPointsApp(root) #instantiate the StarPointsApp class
     root.mainloop() #start the tkinter event loop to keep the GUI running
-
-
