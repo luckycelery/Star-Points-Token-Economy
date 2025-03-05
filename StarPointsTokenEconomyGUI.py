@@ -2,7 +2,7 @@
 ===========================================================
 Project Title:        Star Points Token Economy
 Assignment Name:      Module 8 Final Project
-Last Edited:         03/04/25
+Last Edited:         03/05/25
 Due Date:            03/05/25
 ===========================================================
 
@@ -265,7 +265,7 @@ class WidgetCreator:
             )
 
         #position the stats head in the layout
-        statsHeader.grid(row=1, column=5, sticky="n", padx=10, pady=10)
+        statsHeader.grid(row=1, column=5, sticky="s", padx=10, pady=10)
 
 
     def create_rewards(self):
@@ -277,7 +277,7 @@ class WidgetCreator:
         rewardsHeader = tk.Label(
             self.root, text="Earned Rewards:", font=self.header_font, fg="gray", bg="light blue"
             )
-        rewardsHeader.grid(row=3, column=5, padx=10, pady=10, sticky="nesw")
+        rewardsHeader.grid(row=3, column=5, padx=10, pady=10, sticky="esw")
 
         #frame to hold dynamically generated reward buttons
         self.reward_buttons = tk.Frame(self.root, bg="light blue")
@@ -549,6 +549,7 @@ class WidgetCreator:
             self.total_points -= cost
             print(f"Redeemed {reward} for {cost} points!")
             self.update_total_points()
+            self.data_manager.save_data("total_points.pkl", self.total_points)
             self.display_rewards()  # Refresh the displayed rewards after redeeming
         else:
             #display mesage if not enought points available
@@ -559,14 +560,17 @@ class WidgetCreator:
         """
         Updates the total points based of the user's activities/entries. 
         """
-
-        #create a label to display the user's total points
-        total_points_label = tk.Label(
-            #dynamically update teh points value
-            self.root, text=f"Total Points: {self.total_points}",
-            font=self.header_font, fg="gray", bg="light blue")
-        total_points_label.grid(row=2, column=5, sticky="nw", padx=10, pady=10
+        # Check if the total_points_label already exists
+        if hasattr(self, 'total_points_label'):
+            # If the label exists, update its text
+            self.total_points_label.config(text=f"Total Points: {self.total_points}")
+        else:
+            # If the label does not exist, create a new one
+            self.total_points_label = tk.Label(
+                self.root, text=f"Total Points: {self.total_points}",
+            font=self.header_font, fg="gray", bg="light blue"
         )
+        self.total_points_label.grid(row=2, column=5, sticky="nw", padx=10, pady=10)
 
         # Create a frame for the image to prevent layout shifting
         star_frame = tk.Frame(self.root, bg="light blue")
@@ -590,6 +594,8 @@ class WidgetCreator:
 
         # Refresh the reward display to reflect cleared data
         self.display_rewards()
+
+        self.total_points = self.data_manager.load_data("total_points.pkl",0)
 
 
     def enter_data(self):
@@ -665,4 +671,5 @@ if __name__ == "__main__":
     root = tk.Tk() #create the main Tkinter window
     app = StarPointsApp(root) #instantiate the StarPointsApp class
     root.mainloop() #start the tkinter event loop to keep the GUI running
+
 
